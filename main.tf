@@ -11,6 +11,10 @@ provider "aws" {
   region = "us-west-2"
 }
 
+data "aws_vpc" "default" {
+  default = true
+}
+
 resource "aws_security_group" "tf-sec-gr" {
   name        = "tf-provisioner-sg"
   description = "Security group for terraform provisioner"
@@ -59,7 +63,7 @@ resource "aws_instance" "instance" {
   connection {
     host        = self.public_ip
     type        = "ssh"
-    user        = "ec2-user"
+    user        = "ubuntu"
     private_key = file("~/.ssh/id_rsa")
   }
 
