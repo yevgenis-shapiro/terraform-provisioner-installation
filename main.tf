@@ -69,9 +69,9 @@ resource "aws_instance" "instance" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo yum -y install httpd",
-      "sudo systemctl enable httpd",
-      "sudo systemctl start httpd"
+      "sudo apt-get install apache2 -y",
+      "sudo curl -sfL https://get.k3s.io | sh -",
+      "sudo export KUBECONFIG=/etc/rancher/k3s/k3s.yaml"
     ]
   }
 
