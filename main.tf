@@ -18,6 +18,7 @@ data "aws_vpc" "default" {
 resource "aws_security_group" "tf-sec-gr" {
   name        = "tf-provisioner-sg"
   description = "Security group for terraform provisioner"
+  vpc_id      = data.aws_vpc.default.id
   tags = {
     Name = "tf-provisioner-sg"
   }
