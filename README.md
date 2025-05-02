@@ -1,6 +1,6 @@
 
 
-## Terraform Provisioners | 🚀
+## Terraform Provisioner  | local-exec 🚀
 
 
 ## Key Feature
