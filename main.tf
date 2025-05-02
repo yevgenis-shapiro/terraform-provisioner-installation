@@ -49,8 +49,6 @@ resource "aws_instance" "instance" {
   ami             = var.ec2_ami
   instance_type   = var.ec2_type
   key_name        = var.key_name
-  #vpc_security_group_ids      = [aws_security_group.allow_ssh.id]
-  #vpc_security_group_ids = [aws_security_group.allow_ssh.id]
   security_groups = ["tf-provisioner-sg"]
 
   tags = {
@@ -65,7 +63,7 @@ resource "aws_instance" "instance" {
     host        = self.public_ip
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("~/.ssh/id_rsa")
+    private_key = file("~/.ssh/id_rsa.pub")
   }
 
   provisioner "remote-exec" {
