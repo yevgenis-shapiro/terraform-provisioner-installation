@@ -37,10 +37,17 @@ resource "aws_security_group" "tf-sec-gr" {
   }
 
   ingress {
+    from_port   = 443
+    protocol    = "tcp"
+    to_port     = 443
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     from_port   = 22
     protocol    = "tcp"
     to_port     = 22
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["84.228.99.5/32"]
   }
 
   egress {
@@ -58,7 +65,7 @@ resource "aws_instance" "instance" {
   security_groups = ["tf-provisioner-sg"]
 
   tags = {
-    Name = "terraform-instance-with-provisioner"
+    Name = "terraform-instance-provisioner"
   }
 
   provisioner "local-exec" {
@@ -77,7 +84,9 @@ resource "aws_instance" "instance" {
     inline = [
       "sudo apt-get update -y",
       "sudo curl -sfL https://get.k3s.io | sh -",
-      "sudo apt-get install nano -y"
+      "sudo curl -# -LO https://get.helm.sh/helm-v3.5.3-linux-amd64.tar.gz && sudo tar -xzvf helm-v3.5.3-linux-amd64.tar.gz",
+      "sudo mv linux-amd64/helm /usr/local/bin/helm",
+      "sudo helm version"
     ]
   }
 
