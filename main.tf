@@ -67,6 +67,7 @@ resource "aws_key_pair" "generated_key" {
   key_name   = "ubuntu"
   public_key = file("~/.ssh/id_rsa.pub")
 }
+
   provisioner "local-exec" {
     command = "echo http://${self.public_ip} > public_ip.txt"
   }
