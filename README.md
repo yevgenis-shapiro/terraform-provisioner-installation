@@ -1,6 +1,6 @@
 
 
-## Terraform Provisioner  | Remote-exec 🚀
+## Terraform Provisioner  | Remote-Exec 🚀
 
 
 
