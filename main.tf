@@ -42,7 +42,7 @@ resource "aws_security_group" "tf-sec-gr" {
     from_port   = 22
     protocol    = "tcp"
     to_port     = 22
-    cidr_blocks = ["84.228.99.5/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
