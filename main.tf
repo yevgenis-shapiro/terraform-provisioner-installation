@@ -15,6 +15,11 @@ data "aws_vpc" "default" {
   default = true
 }
 
+resource "aws_key_pair" "generated_key" {
+  key_name   = "ubuntu"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
 resource "aws_security_group" "tf-sec-gr" {
   name        = "tf-provisioner-sg"
   description = "Security group for terraform provisioner"
@@ -43,11 +48,6 @@ resource "aws_security_group" "tf-sec-gr" {
     to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-resource "aws_key_pair" "generated_key" {
-  key_name   = "ubuntu"
-  public_key = file("~/.ssh/id_rsa.pub")
 }
 
 resource "aws_instance" "instance" {
