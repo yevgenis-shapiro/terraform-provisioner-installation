@@ -76,7 +76,7 @@ resource "aws_instance" "instance" {
     inline = [
       "sudo apt-get update -y",
       "sudo curl -sfL https://get.k3s.io | sh -",
-      "sudo sudo apt-get install nano -y"
+      "sudo apt-get install nano -y"
     ]
   }
 
