@@ -91,7 +91,7 @@ resource "aws_instance" "instance" {
       "sudo curl -sfL https://get.k3s.io | sh -",
       "sudo curl -# -LO https://get.helm.sh/helm-v3.5.3-linux-amd64.tar.gz && sudo tar -xzvf helm-v3.5.3-linux-amd64.tar.gz",
       "sudo mv linux-amd64/helm /usr/local/bin/helm",
-      "sudo helm version"
+      "sudo systemctl status k3s | grep -v k3s 2>/dev/null"
     ]
   }
 
