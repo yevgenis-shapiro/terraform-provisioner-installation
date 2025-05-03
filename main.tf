@@ -45,6 +45,11 @@ resource "aws_security_group" "tf-sec-gr" {
   }
 }
 
+resource "aws_key_pair" "generated_key" {
+  key_name   = "ubuntu"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
 resource "aws_instance" "instance" {
   ami             = var.ec2_ami
   instance_type   = var.ec2_type
@@ -63,19 +68,20 @@ resource "aws_instance" "instance" {
     host        = self.public_ip
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("~/.ssh/id_rsa.pub")
+    private_key = file("~/.ssh/id_rsa")
+
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo apt-get install apache2 -y",
+      "sudo apt-get update -y",
       "sudo curl -sfL https://get.k3s.io | sh -",
-      "sudo export KUBECONFIG=/etc/rancher/k3s/k3s.yaml"
+      "sudo sudo apt-get install nano -y"
     ]
   }
 
   provisioner "file" {
     content     = self.public_ip
-    destination = "/home/ec2-user/my_public_ip.txt"
+    destination = "/home/ubuntu/my_public_ip.txt"
   }
 }
