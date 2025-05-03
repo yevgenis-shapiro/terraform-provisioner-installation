@@ -64,6 +64,11 @@ resource "aws_instance" "instance" {
   key_name        = var.key_name
   security_groups = ["tf-provisioner-sg"]
 
+ # Add this block to customize root volume
+  root_block_device {
+    volume_size = 100  # Size in GB
+    volume_type = "gp3"
+  }
   tags = {
     Name = "terraform-instance-provisioner"
   }
