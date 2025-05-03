@@ -53,6 +53,11 @@ resource "aws_security_group" "tf-sec-gr" {
   }
 }
 
+resource "aws_key_pair" "generated_key" {
+  key_name   = "ubuntu"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
+
 resource "aws_instance" "instance" {
   ami             = var.ec2_ami
   instance_type   = var.ec2_type
@@ -62,11 +67,6 @@ resource "aws_instance" "instance" {
   tags = {
     Name = "terraform-instance-provisioner"
   }
-
-resource "aws_key_pair" "generated_key" {
-  key_name   = "ubuntu"
-  public_key = file("~/.ssh/id_rsa.pub")
-}
 
   provisioner "local-exec" {
     command = "echo http://${self.public_ip} > public_ip.txt"
