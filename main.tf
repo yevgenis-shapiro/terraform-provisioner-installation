@@ -88,11 +88,9 @@ resource "aws_instance" "instance" {
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update -y",
-      "sudo curl -sfL https://get.k3s.io | sh -",
-      "sudo sleep 5 && systemctl status k3s | grep -v k3s 2>/dev/null",
-      "sudo curl -# -LO https://get.helm.sh/helm-v3.5.3-linux-amd64.tar.gz && sudo tar -xzvf helm-v3.5.3-linux-amd64.tar.gz",
-      "sudo mv linux-amd64/helm /usr/local/bin/helm",
-      "sudo helm version"
+      "sudo apt-get install docker.io -y",
+      "sudo sleep 5 && systemctl status docker | grep -v k3s 2>/dev/null",
+      "sudo docker ps -a
     ]
   }
 
