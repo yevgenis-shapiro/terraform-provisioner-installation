@@ -90,7 +90,7 @@ resource "aws_instance" "instance" {
       "sudo apt-get update -y",
       "sudo apt-get install docker.io -y",
       "sudo sleep 5 && systemctl status docker | grep -v k3s 2>/dev/null",
-      "sudo docker ps -a
+      "sudo docker ps -a"
     ]
   }
 
