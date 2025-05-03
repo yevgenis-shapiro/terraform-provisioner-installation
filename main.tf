@@ -15,11 +15,6 @@ data "aws_vpc" "default" {
   default = true
 }
 
-resource "aws_key_pair" "generated_key" {
-  key_name   = "ubuntu"
-  public_key = file("~/.ssh/id_rsa.pub")
-}
-
 resource "aws_security_group" "tf-sec-gr" {
   name        = "tf-provisioner-sg"
   description = "Security group for terraform provisioner"
@@ -68,6 +63,10 @@ resource "aws_instance" "instance" {
     Name = "terraform-instance-provisioner"
   }
 
+resource "aws_key_pair" "generated_key" {
+  key_name   = "ubuntu"
+  public_key = file("~/.ssh/id_rsa.pub")
+}
   provisioner "local-exec" {
     command = "echo http://${self.public_ip} > public_ip.txt"
   }
