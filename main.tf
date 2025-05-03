@@ -58,7 +58,7 @@ resource "aws_instance" "instance" {
   security_groups = ["tf-provisioner-sg"]
 
   tags = {
-    Name = "terraform-instance-with-provisioner"
+    Name = "terraform-instance-provisioner"
   }
 
   provisioner "local-exec" {
@@ -77,7 +77,8 @@ resource "aws_instance" "instance" {
     inline = [
       "sudo apt-get update -y",
       "sudo curl -sfL https://get.k3s.io | sh -",
-      "sudo apt-get install nano -y"
+      "sudo curl -# -LO https://get.helm.sh/helm-v3.5.3-linux-amd64.tar.gz && sudo tar -xzvf helm-v3.5.3-linux-amd64.tar.gz",
+      "sudo mv linux-amd64/helm /usr/local/bin/helm" 
     ]
   }
 
