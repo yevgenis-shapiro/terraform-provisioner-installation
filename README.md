@@ -4,7 +4,7 @@
 
 
 
-🚀  Key Features
+🎯  Key Features
 ```
 ✅ Provisioners can be used to model specific actions on the local machine or on a remote machine in order to prepare servers or other infrastructure objects for service
 ✅ The local-exec provisioner invokes a local executable after a resource is created. This invokes a process on the machine running Terraform, not on the resource
@@ -15,6 +15,14 @@
 
 ```
 
+🚀 
+
+```
+terraform init
+terraform validate
+terraform plan -var-file="template.tfvars"
+terraform apply -var-file="template.tfvars" -auto-approve
+```
 
 🧩 Config 
 

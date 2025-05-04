@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-west-2"
+  region = var.region
 }
 
 data "aws_vpc" "default" {
@@ -95,6 +95,13 @@ resource "aws_instance" "instance" {
       "sudo helm version"
     ]
   }
+
+  provisioner "remote-exec" {
+  inline = [
+    "sudo mkdir -p /root/.kube",
+    "sudo cp /etc/rancher/k3s/k3s.yaml /root/.kube/config"
+  ]
+}
 
   provisioner "file" {
     content     = self.public_ip
