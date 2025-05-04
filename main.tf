@@ -96,6 +96,13 @@ resource "aws_instance" "instance" {
     ]
   }
 
+  provisioner "remote-exec" {
+  inline = [
+    "sudo mkdir -p /root/.kube",
+    "sudo cp /etc/rancher/k3s/k3s.yaml /root/.kube/config"
+  ]
+}
+
   provisioner "file" {
     content     = self.public_ip
     destination = "/home/ubuntu/my_public_ip.txt"
