@@ -88,18 +88,24 @@ resource "aws_instance" "instance" {
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update -y",
-      "sudo curl -sfL https://get.k3s.io | sh -",
+      "sudo curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC='--disable traefik' sh -",
       "sudo sleep 5 && systemctl status k3s | grep -v k3s 2>/dev/null",
       "sudo curl -# -LO https://get.helm.sh/helm-v3.5.3-linux-amd64.tar.gz && sudo tar -xzvf helm-v3.5.3-linux-amd64.tar.gz",
       "sudo mv linux-amd64/helm /usr/local/bin/helm",
       "sudo helm version"
     ]
   }
-
   provisioner "remote-exec" {
   inline = [
     "sudo mkdir -p /root/.kube",
     "sudo cp /etc/rancher/k3s/k3s.yaml /root/.kube/config"
+  ]
+}
+  provisioner "remote-exec" {
+  inline = [
+    "sudo helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx",
+    "sudo helm repo update",
+    "sudo helm install ingress ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace --set controller.extraArgs.update-status=\\\"false\\\""
   ]
 }
 
