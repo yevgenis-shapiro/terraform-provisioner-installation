@@ -1,3 +1,4 @@
+![Terraform_BlogImage](https://github.com/user-attachments/assets/ac8e5635-c116-41bb-8c99-7a693997f3cb)
 
 
 ## Terraform Provisioner  | Remote-Exec 🚀
